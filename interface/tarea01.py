@@ -151,7 +151,7 @@ def conica_de_papus():
 
     a1 = 30
 
-    a = 50
+    a = 15
     z = a1 * np.cos(a) * t
     r = z ** 2 + 1
     x = a1 * np.sin(a) * t * np.cos(t)
