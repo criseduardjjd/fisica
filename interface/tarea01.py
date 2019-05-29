@@ -51,6 +51,37 @@ def curva_de_ejemplo():
 
 def helice_conica():
     # añadir sus códigos aca
+    """
+        Curva de Ejemplo que despliega una Helice Cónica
+
+        Integrantes:
+        - Mario Labbé (@LsMario1998)
+        - Mario González (@tatameister)
+        - Cristóbal Cortés (@Cristobal140)
+        - Thadly Guerra (@Thadly64)
+        - Luis Inostroza (@luisinostrozaf)
+        :return: Curva Helice Cónica
+        """
+
+    plt.rcParams['legend.fontsize'] = 10
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # Prepare arrays x, y, z
+    theta = np.linspace(-6 * np.pi, 6 * np.pi, 1000)
+    print (np.cos((np.pi*30)/180))
+
+    e = 2.718281
+    a = 3
+    x = a * (e**(np.sin(45) * (1/np.tan(30)*theta))) * np.cos(theta)
+    y = a * (e**(np.sin(45) * (1/np.tan(30)*theta)))* np.sin(theta)
+    z = a * (e**(np.sin(45) * (1/np.tan(30)*theta))) * (1/np.tan(45))
+
+    ax.plot(x, y, z, label='helice cónica')
+    ax.legend()
+
+    plt.show()
     pass
 def helice_circular_1():
     """
@@ -77,18 +108,54 @@ def helice_circular_1():
     r = 5
     y = r * np.sin(t)
     x = r * np.cos(t)
-    ax.plot(x, y, z, 'b', lw=2)
-
-    # linea roja al centro de la helice circular
+    ax.plot(x, y, z, 'b', lw=2, label='Curva Hélice Circular')
+    ax.legend()
+    # linea ax.legend()oja al centro de la helice circular
     ax.plot((0, 0), (0, 0), (-t_max * 0.2, t_max * 1.2), color='r', lw=2)
 
     plt.show()
     pass
 def Corona_Sinusoidal():
-    # añadir sus códigos aca
+    '''    INTEGRANTES GRUPO:
+
+          _Luis Soto Zelada (@Luiss23)
+          _Diego Rojas (@diegoskky)
+          _Lucia Vilches (@luciavj)
+          grafica una corona sinusoidal en un plano cartesiano
+          De la forma  f(x)=2sen(pi * x)'''
+    Fs: int = 80  # corresponde al limite de la funcion en un ciclo
+    f: float = 1  # cantidad de unidades del eje y
+    sample: int = 80
+    x = np.arange(sample)
+    y = np.sin(2 * np.pi * f * x / Fs)
+    plt.plot(x, y)
+    plt.show()
     pass
+
 def curva_de_viviani():
-    # añadir sus códigos aca
+    """
+    Funcion que muestra una curva de viviani en una nueva ventana
+
+    Integrantes:
+    Levi Urbina
+    Natalia Valenzuela
+    Ricardo Vergara
+    Estefany Alarcon
+
+    return: curva_de_viviani
+    """
+
+    a = 1
+    t = np.linspace(-4, 4 * np.pi, 100)
+    x = a * (1 + np.cos(t))
+    y = a * np.sin(t)
+    z = 2 * a * np.sin(t / 2)
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+    ax.set_title("Curva de viviani")
+    ax.plot(x, y, z, label="Curva de Viviani", lw=5)
+    plt.show()
     pass
 def hipopoda_1():
     # añadir sus códigos aca
@@ -111,11 +178,9 @@ def hipopoda_1():
            return: plot Curve (Hipopede)
            '''
 
-    plt.rcParams['legend.fontsize'] = 10
-
+    plt.rcParams['legend.fontsize'] = 12
     fig = plt.figure()
     ax = fig.gca(projection='3d')
-
     # Prepare arrays x, y, z
     theta = np.linspace(-4 * np.pi, 4 * np.pi, 99)
     a = 1
@@ -123,7 +188,7 @@ def hipopoda_1():
     x = a + (r - a) * np.cos(theta)
     y = (r - a) * np.sin(theta)
     z = 2 * (a * (r - a)) ** (1 / 2) * np.sin(theta / 2)
-    ax.plot(x, y, z, label='parametric curve')
+    ax.plot(x, y, z, label='Hipopede de Eudoxo')
 
     ax.legend()
 
@@ -164,8 +229,38 @@ def conica_de_papus():
 
     pass
 def Curva_de_Arquitas():
-    # añadir sus códigos aca
-    pass
+    """""
+        Tipo de curva: Curva de Arquitas
+
+        Integrantes:
+        Nicolas Fernandez (@matiche)
+        Sebastian Mendez  (@SebaMendez)
+        Cristobal Moreira (@cmoreirab)
+        Gabriel Lara      (@Gabolara453)
+        Dennis Queirolo   (@dennis-queirolo)
+        :return: Curva de arquitas
+        """
+
+    plt.rcParams['legend.fontsize'] = 10
+
+    fig = plt.figure()
+    ax = fig.gca(projection='3d')
+
+    # Prepare arrays x, y, z
+    theta = np.linspace(-10 * np.pi, 10 * np.pi, 100)
+    a = 4
+    t = 10
+    z = a * ((1 - np.cos(theta)) * np.cos(theta)) - (np.pi / 2 <= t <= np.pi / 2)
+    z = - a * ((1 - np.cos(theta)) * np.cos(theta)) - (np.pi / 2 <= t <= np.pi / 2)
+    x = a * np.cos(theta) ** 2
+    y = a * np.cos(theta) * np.sin(theta)
+
+    ax.plot(x, y, z, label=('Curva de Arquitas'))
+    ax.legend()
+
+    plt.show()
+
+
 def horoptera():
     # añadir sus códigos aca
     pass
@@ -199,7 +294,7 @@ if __name__ == '__main__':
     curva_de_ejemplo = tk.Button(master=frame, text="Corona Sinusoidal", command=Corona_Sinusoidal)
     curva_de_ejemplo.pack(side=tk.BOTTOM, padx=10, pady=10)
 
-    curva_de_ejemplo = tk.Button(master=frame, text="Curva de Viviani", command=curva_de_ejemplo)
+    curva_de_ejemplo = tk.Button(master=frame, text="Curva de Viviani", command=curva_de_viviani)
     curva_de_ejemplo.pack(side=tk.BOTTOM, padx=10, pady=10)
 
     curva_de_ejemplo = tk.Button(master=frame, text="Hipopoda", command=hipopoda_1)
