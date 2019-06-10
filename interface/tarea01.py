@@ -1,4 +1,5 @@
 import tkinter as tk
+import matplotlib.animation as animation
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
 # Implement the default Matplotlib key bindings.
@@ -6,6 +7,7 @@ from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import numpy as np
 import matplotlib.pyplot as plt
+import mpl_toolkits.mplot3d.axes3d as p3
 from mpl_toolkits.mplot3d import Axes3D
 
 def curva_de_ejemplo():
@@ -206,25 +208,40 @@ def conica_de_papus():
         - Francisco Castillo Moraga(@taifokk)
         :return: conica de papus
         """
-    plt.rcParams['legend.fontsize'] = 12
 
     fig = plt.figure()
-    ax = fig.gca(projection='3d')
+    ax = p3.Axes3D(fig)
 
-    # Prepare arrays x, y, z
-    t = np.linspace(-9 * np.pi, 9 * np.pi, 2000)
+    def gen(n):
+        teta = 0
+        t = np.linspace(-9 * np.pi, 9 * np.pi, 2000)
 
-    a1 = 30
+        a1 = 30
+        a = 15
+        while teta < 2 * np.pi:
+            yield np.array([a1 * np.sin(a) * t * np.cos(t), a1 * np.sin(a) * t * np.sin(t), a1 * np.cos(a) * t])
+            teta += 2 * np.pi / n
 
-    a = 15
-    z = a1 * np.cos(a) * t
-    r = z ** 2 + 1
-    x = a1 * np.sin(a) * t * np.cos(t)
-    y = a1 * np.sin(a) * t * np.sin(t)
+    def update(num, data, line):
+        line.set_data(data[:2, :num])
+        line.set_3d_properties(data[2, :num])
 
-    ax.plot(x, y, z, label='espiral conica de papus')
-    ax.legend()
+    N = 100
+    data = np.array(list(gen(N))).T
+    line, = ax.plot(data[0, 0:1], data[1, 0:1], data[2, 0:1])
 
+    # Setting the axes properties
+    ax.set_xlim3d([-1.0, 1.0])
+    ax.set_xlabel('X')
+
+    ax.set_ylim3d([-1.0, 1.0])
+    ax.set_ylabel('Y')
+
+    ax.set_zlim3d([0.0, 10.0])
+    ax.set_zlabel('Z')
+
+    ani = animation.FuncAnimation(fig, update, N, fargs=(data, line), interval=10000 / N, blit=False)
+    # ani.save('matplot003.gif', writer='imagemagick')
     plt.show()
 
     pass
